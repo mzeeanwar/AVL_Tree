@@ -114,3 +114,39 @@ class SplayTree
         splay( ptr->element, root );
         return ptr->element;
     }
+bool contains( const Comparable & x )
+    {
+        if( isEmpty( ) )
+            return false;
+        splay( x, root );
+        return root->element == x;
+    }
+
+    bool isEmpty( ) const
+    {
+        return root == nullNode;
+    }
+
+    void printTree( ) const
+    {
+        if( isEmpty( ) )
+            cout << "Empty tree" << endl;
+        else
+            printTree( root );
+    }
+
+    void makeEmpty( )
+    {
+    /******************************
+     * Comment this out, because it is prone to excessive
+     * recursion on degenerate trees. Use alternate algorithm.
+        
+        reclaimMemory( root );
+        root = nullNode;
+     *******************************/
+        while( !isEmpty( ) )
+        {
+            findMax( );        // Splay max item to root
+            remove( root->element );
+        }
+    }
