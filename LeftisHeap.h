@@ -257,3 +257,30 @@ void insert( const Comparable & x )
                 root->right = nullNode;
                 root = newNode;
             }
+else
+                return;
+        }
+        newNode = nullptr;   // So next insert will call new
+    }
+
+    void remove( const Comparable & x )
+    {
+            // If x is found, it will be splayed to the root by contains
+        if( !contains( x ) )
+            return;   // Item not found; do nothing
+
+        BinaryNode *newTree;
+
+        if( root->left == nullNode )
+            newTree = root->right;
+        else
+        {
+            // Find the maximum in the left subtree
+            // Splay it to the root; and then attach right child
+            newTree = root->left;
+            splay( x, newTree );
+            newTree->right = root->right;
+        }
+        delete root;
+        root = newTree;
+    }
