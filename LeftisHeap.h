@@ -284,3 +284,75 @@ else
         delete root;
         root = newTree;
     }
+private:
+    struct BinaryNode
+    {
+        Comparable  element;
+        BinaryNode *left;
+        BinaryNode *right;
+
+        BinaryNode( ) : left{ nullptr }, right{ nullptr } { }
+        
+        BinaryNode( const Comparable & theElement, BinaryNode *lt, BinaryNode *rt )
+            : element{ theElement }, left{ lt }, right{ rt } { }       
+    };
+    
+    BinaryNode *root;
+    BinaryNode *nullNode;
+
+    /**
+     * Internal method to reclaim internal nodes in subtree t.
+     * WARNING: This is prone to running out of stack space.
+     */
+    void reclaimMemory( BinaryNode * t )
+    {
+        if( t != t->left )
+        {
+            reclaimMemory( t->left );
+            reclaimMemory( t->right );
+            delete t;
+        }
+    }
+    
+    /**
+     * Internal method to print a subtree t in sorted order.
+     * WARNING: This is prone to running out of stack space.
+     */
+   void printTree( BinaryNode *t ) const
+    {
+        if( t != t->left )
+        {
+            printTree( t->left );
+            cout << t->element << endl;
+            printTree( t->right );
+        }
+    }
+
+    /**
+     * Internal method to clone subtree.
+     * WARNING: This is prone to running out of stack space.
+     */
+    BinaryNode * clone( BinaryNode * t ) const
+    {
+        if( t == t->left )  // Cannot test against nullNode!!!
+            return nullNode;
+        else
+            return new BinaryNode{ t->element, clone( t->left ), clone( t->right ) };
+    }
+
+        // Tree manipulations
+    void rotateWithLeftChild( BinaryNode * & k2 )
+    {
+        BinaryNode *k1 = k2->left;
+        k2->left = k1->right;
+        k1->right = k2;
+        k2 = k1;
+    }
+
+    void rotateWithRightChild( BinaryNode * & k1 )
+    {
+        BinaryNode *k2 = k1->right;
+        k1->right = k2->left;
+        k2->left = k1;
+        k1 = k2;
+    }
