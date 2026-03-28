@@ -183,3 +183,35 @@ TreapNode *root;
         }
         // else duplicate; do nothing
     }
+/**
+     * Internal method to insert into a subtree.
+     * x is the item to insert.
+     * t is the node that roots the tree.
+     * Set the new root of the subtree.
+     * (randomNums is a UniformRandom object that is a data member of Treap.)
+     */
+    void insert( Comparable && x, TreapNode* & t )
+    {
+        if( t == nullNode )
+            t = new TreapNode{ std::move( x ), nullNode, nullNode, randomNums.nextInt( ) };
+        else if( x < t->element )
+        {
+            insert( std::move( x ), t->left );
+            if( t->left->priority < t->priority )
+                rotateWithLeftChild( t );
+        }
+        else if( t->element < x )
+        {
+            insert( std::move( x ), t->right );
+            if( t->right->priority < t->priority )
+                rotateWithRightChild( t );
+        }
+        // else duplicate; do nothing
+    }
+
+    /**
+     * Internal method to remove from a subtree.
+     * x is the item to remove.
+     * t is the node that roots the tree.
+     * Set the new root of the subtree.
+     */
