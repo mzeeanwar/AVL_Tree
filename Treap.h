@@ -103,3 +103,35 @@ const Comparable & findMin( ) const
                 return current != nullNode;
         }
     }
+bool isEmpty( ) const
+    {
+        return root == nullNode;
+    }
+
+    void printTree( ) const
+    {
+        if( isEmpty( ) )
+            cout << "Empty tree" << endl;
+        else
+            printTree( root );
+    }
+
+    void makeEmpty( )
+    {
+        makeEmpty( root );
+    }
+
+    void insert( const Comparable & x )
+    {
+        insert( x, root );
+    }
+
+    void insert( Comparable && x )
+    {
+        insert( std::move( x ), root );
+    }
+
+    void remove( const Comparable & x )
+    {
+        remove( x, root );
+    }
