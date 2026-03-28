@@ -64,3 +64,42 @@ class Treap
         
         return *this;
     }
+const Comparable & findMin( ) const
+    {
+        if( isEmpty( ) )
+            throw UnderflowException{ };
+
+        TreapNode *ptr = root;
+        while( ptr->left != nullNode )
+            ptr = ptr->left;
+
+        return ptr->element;
+    }
+
+    const Comparable & findMax( ) const
+    {
+        if( isEmpty( ) )
+            throw UnderflowException{ };
+
+        TreapNode *ptr = root;
+        while( ptr->right != nullNode )
+            ptr = ptr->right;
+
+        return ptr->element;
+    }
+
+    bool contains( const Comparable & x ) const
+    {
+        TreapNode *current = root;
+        nullNode->element = x;
+
+        for( ; ; )
+        {
+            if( x < current->element )
+                current = current->left;
+            else if( current->element < x )
+                current = current->right;
+            else
+                return current != nullNode;
+        }
+    }
