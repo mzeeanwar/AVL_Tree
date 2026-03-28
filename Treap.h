@@ -30,3 +30,37 @@ class Treap
         nullNode->priority = INT_MAX;
         root = clone( rhs.root );
     }
+~Treap( )
+    {
+        makeEmpty( );
+        delete nullNode;
+    }
+    
+
+    Treap( Treap && rhs ) : root{ rhs.root }, nullNode{ rhs.nullNode }
+    {
+        rhs.root = nullptr;
+        rhs.nullNode = nullptr;
+    }
+
+    
+    /**
+     * Deep copy.
+     */
+    Treap & operator=( const Treap & rhs )
+    {
+        Treap copy = rhs;
+        std::swap( *this, copy );
+        return *this;
+    }
+        
+    /**
+     * Move.
+     */
+    Treap & operator=( Treap && rhs )
+    {
+        std::swap( root, rhs.root );
+        std::swap( nullNode, rhs.nullNode );
+        
+        return *this;
+    }
