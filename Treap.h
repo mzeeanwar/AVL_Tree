@@ -130,6 +130,24 @@ bool isEmpty( ) const
     {
         insert( std::move( x ), root );
     }
+private:
+    struct TreapNode
+    {
+        Comparable element;
+        TreapNode *left;
+        TreapNode *right;
+        int        priority;
+
+        TreapNode( ) : left{ nullptr }, right{ nullptr }, priority{ INT_MAX } { }
+        
+        TreapNode( const Comparable & e, TreapNode *lt, TreapNode *rt, int pr )
+          : element{ e }, left{ lt }, right{ rt }, priority{ pr }
+          { }
+        
+        TreapNode( Comparable && e, TreapNode *lt, TreapNode *rt, int pr )
+          : element{ std::move( e ) }, left{ lt }, right{ rt }, priority{ pr }
+          { }
+    };
 
     void remove( const Comparable & x )
     {
