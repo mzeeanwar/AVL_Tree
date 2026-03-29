@@ -83,3 +83,30 @@ class Random48
     {
         return nextInt( high - low + 1 ) + low;
     }
+/**
+     * Return a 64-bit long, and change the internal state.
+     * Note that all longs can be generated.
+     */
+    long long nextLong( )
+    {
+        return ( ( static_cast<long long>( next( 32 ) ) ) << 32 ) + next( 32 );
+    }
+    
+  private:
+    long long state;
+      
+    static const long long A = 25214903917LL;
+    static const long long C = 11;
+    static const long long M = ( 1LL << 48 );
+    static const long long MASK = M - 1;
+
+    /**
+     * Return specified number of random bits
+     */
+    int next( int bits )
+    {
+        state = ( A * state + C ) & MASK;
+
+        return state >> ( 48 - bits );
+    }
+};
