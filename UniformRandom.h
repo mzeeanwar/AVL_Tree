@@ -56,3 +56,30 @@ class Random48
     {
         return next( 32 );
     }
+/**
+     * Return a pseudorandom int in range [0..high),
+     * and change the internal state.
+     */
+    int nextInt( int high )
+    {
+        return static_cast<int>( abs( nextLong( ) % high ) ); 
+    }
+    
+    /**
+     * Return a pseudorandom double in the range [0..1)
+     * and change the internal state.
+     */
+    double nextDouble( )
+    {
+        return ( ( static_cast<long long>( ( next( 26 ) ) ) << 27 ) + next( 27 ) )
+                / static_cast<double>( 1LL << 53 );
+    }
+
+    /**
+     * Return an int in the closed range [low,high], and
+     * change the internal state.
+     */
+    int nextInt( int low, int high )
+    {
+        return nextInt( high - low + 1 ) + low;
+    }
