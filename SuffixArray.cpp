@@ -125,3 +125,39 @@ void makeSuffixArray( const vector<int> & s, vector<int> & SA, int n, int K )
     computeS0( s, s0, SA0, SA12, n0, n12, K );
     merge( s, s12, SA, SA0, SA12, n, n0, n12, t );
 }
+// Assigns the new supercharacter names.
+// At end of routine, SA will have indices into s, in sorted order
+// and s12 will have new character names
+// Returns the number of names assigned; note that if
+// this value is the same as n12, then SA is a suffix array for s12.
+int assignNames( const vector<int> & s, vector<int> & s12, vector<int> & SA12,
+                 int n0, int n12, int K )
+{
+      // radix sort the new character trios
+    radixPass( s12 , SA12, s, 2, n12, K );
+    radixPass( SA12, s12 , s, 1, n12, K );  
+    radixPass( s12 , SA12, s, 0, n12, K );
+
+      // find lexicographic names of triples
+    int name = 0;
+    int c0 = -1, c1 = -1, c2 = -1;
+
+    for( int i = 0; i < n12; ++i )
+    {
+        if( s[ SA12[ i ] ] != c0 || s[ SA12[ i ] + 1 ] != c1
+                                    || s[ SA12[ i ] + 2 ] != c2 )
+        { 
+            ++name;
+            c0 = s[ SA12[ i ] ];
+            c1 = s[ SA12[ i ] + 1 ];
+            c2 = s[ SA12[ i ] + 2 ];
+        }
+
+        if( SA12[ i ] % 3 == 1 )
+            s12[ SA12[ i ] / 3 ]      = name;   // S1
+        else
+            s12[ SA12[ i ] / 3 + n0 ] = name;   // S2
+    }
+
+    return name;
+}
