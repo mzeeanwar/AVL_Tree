@@ -97,3 +97,31 @@ void createSuffixArray( const string & str, vector<int> & sa, vector<int> & LCP 
 
     makeLCPArray( s, sa, LCP );
 }
+// find the suffix array SA of s[0..n-1] in {1..K}^n
+// require s[n]=s[n+1]=s[n+2]=0, n>=2
+void makeSuffixArray( const vector<int> & s, vector<int> & SA, int n, int K )
+{
+    int n0 = ( n + 2 ) / 3;
+    int n1 = ( n + 1 ) / 3;
+    int n2 = n / 3;
+    int t = n0 - n1;  // 1 iff n%3 == 1
+    int n12 = n1 + n2 + t;
+
+    vector<int> s12( n12 + 3 );
+    vector<int> SA12( n12 + 3 );
+    vector<int> s0( n0 );
+    vector<int> SA0( n0 );
+
+    // generate positions in s for items in s12
+    // the "+t" adds a dummy mod 1 suffix if n%3 == 1
+    // at that point, the size of s12 is n12
+    for( int i = 0, j = 0; i < n + t; ++i )
+        if( i % 3 != 0 )
+            s12[ j++ ] = i;
+
+    int K12 = assignNames( s, s12, SA12, n0, n12, K );
+
+    computeS12( s12, SA12, n12, K12 );
+    computeS0( s, s0, SA0, SA12, n0, n12, K );
+    merge( s, s12, SA, SA0, SA12, n, n0, n12, t );
+}
