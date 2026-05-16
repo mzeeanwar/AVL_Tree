@@ -40,3 +40,60 @@ bool isSorted( const vector<int> & SA, const vector<int> & s, int n );
 void assert0( bool cond );
 int computeLCP( const string & s1, const string & s2 );
 void createSuffixArraySlow( const string & str, vector<int> & SA, vector<int> & LCP );
+
+/*
+ * Create the LCP array from the suffix array
+ * s is the input array populated from 0..N-1, with available pos N
+ * sa is an already-computed suffix array 0..N-1
+ * LCP is the resulting LCP array 0..N-1
+ */
+void makeLCPArray( vector<int> & s, const vector<int> & sa, vector<int> & LCP )
+{
+    int N = sa.size( );
+    vector<int> rank( N );
+
+    s[ N ] = -1;
+    for( int i = 0; i < N; ++i )
+        rank[ sa[ i ] ] = i;
+
+    int h = 0;
+    for( int i = 0; i < N; ++i )
+        if( rank[ i ] > 0 )
+        {
+            int j = sa[ rank[ i ] - 1 ];
+
+            while( s[ i + h ] == s[ j + h ] )
+                ++h;
+
+            LCP[ rank[ i ] ] = h;
+            if( h > 0 )
+                --h;
+        }
+}
+
+/*
+ * Fill in the suffix array information for String str
+ * str is the input String
+ * sa is an existing array to place the suffix array
+ * LCP is an existing array to place the LCP information
+ */
+void createSuffixArray( const string & str, vector<int> & sa, vector<int> & LCP )
+{
+    if( sa.size( ) != str.length( ) || LCP.size( ) != str.length( ) )
+        throw invalid_argument{ "Mismatched vector sizes" };
+    
+    int N = str.length( );
+
+    vector<int> s( N + 3 );
+    vector<int> SA( N + 3 );
+
+    for( int i = 0; i < N; ++i )
+        s[ i ] = str[ i ];
+
+    makeSuffixArray( s, SA, N, 256 );
+
+    for( int i = 0; i < N; ++i )
+        sa[ i ] = SA[ i ];
+
+    makeLCPArray( s, sa, LCP );
+}
