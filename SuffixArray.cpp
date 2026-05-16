@@ -370,3 +370,21 @@ void createSuffixArraySlow( const string & str, vector<int> & SA, vector<int> & 
 {
     if( SA.size( ) != str.length( ) || LCP.size( ) != str.length( ) )
         throw invalid_argument{ "Mismatched vector sizes" };
+   size_t N = str.length( );
+
+    vector<const char *> suffixes( N );
+    const char *cstr = str.c_str( );
+
+    for( int i = 0; i < N; ++i )
+        suffixes[ i ] = cstr + i; 
+
+    sort( begin( suffixes ), end( suffixes ),
+      [] ( const char *s1, const char *s2 ) { return strcmp( s1, s2 ) < 0; } );
+
+    for( int i = 0; i < N; ++i )
+        SA[ i ] = suffixes[ i ] - cstr;
+
+    LCP[ 0 ] = 0;
+    for( int i = 1; i < N; ++i )
+        LCP[ i ] = computeLCP( suffixes[ i - 1 ], suffixes[ i ] );
+}
