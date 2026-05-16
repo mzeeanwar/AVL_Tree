@@ -316,3 +316,35 @@ bool isSorted( const vector<int> & SA, const vector<int> & s, int n )
 
     return true;  
 }
+
+
+
+void assert0( bool cond )
+{
+    if( !cond )
+        throw "ASSERTION EXCEPTION";
+}
+
+
+int main( )
+{
+    const string abr = "banana";
+    vector<int> sufarr( abr.length( ) );
+    vector<int> LCP( abr.length( ) );
+
+
+    createSuffixArraySlow( "banana", sufarr, LCP );
+
+    cout << "SLOW ALGORITHM" << endl;
+    for( int i = 0; i < abr.length( ); ++i )
+        cout << i << " " << sufarr[ i ] << " " << LCP[ i ] << endl;
+
+    cout << "FAST ALGORITHM" << endl;
+    createSuffixArray( "banana", sufarr, LCP );
+
+    for( int i = 0; i < abr.length( ); ++i )
+        cout << i << " " << sufarr[ i ] << " " << LCP[ i ] << endl;
+    
+    return 0;
+}
+
