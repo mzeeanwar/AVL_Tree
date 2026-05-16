@@ -161,3 +161,56 @@ int assignNames( const vector<int> & s, vector<int> & s12, vector<int> & SA12,
 
     return name;
 }
+// stably sort in[0..n-1] with indices into s that has keys in 0..K
+// into out[0..n-1]; sort is relative to offset into s
+// uses counting radix sort
+void radixPass( const vector<int> & in, vector<int> & out,
+                const vector<int> & s, int offset, int n, int K ) 
+{ 
+    vector<int> count( K + 2 );                  // counter array
+
+    for( int i = 0; i < n; ++i )
+        ++count[ s[ in[ i ] + offset ] + 1 ];    // count occurrences
+
+    for( int i = 1; i <= K + 1; ++i )            // compute exclusive sums
+        count[ i ] += count[ i - 1 ];
+
+    for( int i = 0; i < n; ++i )
+        out[ count[ s[ in[ i ] + offset ] ]++ ] = in[ i ];      // sort
+} 
+
+// stably sort in[0..n-1] with indices into s that has keys in 0..K
+// into out[0..n-1]
+// uses counting radix sort
+void radixPass( const vector<int> & in, vector<int> & out,
+                const vector<int> & s, int n, int K ) 
+{ 
+    radixPass( in, out, s, 0, n, K );
+}
+
+
+// Compute the suffix array for s12, placing result into SA12
+void computeS12( vector<int> & s12, vector<int> & SA12, int n12, int K12 )
+{
+    if( K12 == n12 ) // if unique names, don't need recursion
+        for( int i = 0; i < n12; ++i )
+            SA12[ s12[i] - 1 ] = i; 
+    else
+    {
+        makeSuffixArray( s12, SA12, n12, K12 );
+          // store unique names in s12 using the suffix array 
+        for( int i = 0; i < n12; ++i )
+            s12[ SA12[ i ] ] = i + 1;
+    }
+}
+
+void computeS0( const vector<int> & s, vector<int> & s0,
+                vector<int> & SA0, const vector<int> & SA12,
+                            int n0, int n12, int K )
+{
+    for( int i = 0, j = 0; i < n12; ++i )
+        if( SA12[ i ] < n0 )
+            s0[ j++ ] = 3 * SA12[ i ];
+
+    radixPass( s0, SA0, s, n0, K );
+}
