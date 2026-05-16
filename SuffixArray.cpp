@@ -270,3 +270,28 @@ bool suffix12IsSmaller( const vector<int> & s, const vector<int> & s12,
         return leq( s[ i ], s[ i + 1 ], s12[ SA12[ t ] - n0 + 1 ],
                     s[ j ], s[ j + 1 ], s12[ j / 3 + n0 ] );
 }
+void printV( const vector<int> & a, const string & comment)
+{
+    cout << comment << ":";
+    for( int i = 0; i < a.size( ); ++i )  // use old loop style for old compilers
+        cout << a[ i ] << " ";
+
+    cout << endl;
+}
+
+bool isPermutation( const vector<int> & SA, int n )
+{
+    vector<bool> seen( n );
+
+    for( int i = 0; i < n; ++i )
+        seen[ i ] = false;
+
+    for( int i = 0; i < n; ++i )
+        seen[ SA[ i ] ] = true;
+
+    for( int i = 0; i < n; ++i )
+        if( !seen[ i ] )
+            return false;
+
+    return true;
+}
