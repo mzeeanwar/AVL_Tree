@@ -295,3 +295,24 @@ bool isPermutation( const vector<int> & SA, int n )
 
     return true;
 }
+bool sleq( const vector<int> & s1, int start1, const vector<int> & s2, int start2 )
+{
+    for( int i = start1, j = start2; ; ++i, ++j )
+    {
+        if( s1[ i ] < s2[ j ] )
+            return true;
+
+        if( s1[ i ] > s2[ j ] )
+            return false;
+    }
+} 
+
+// is SA a sorted suffix array for s?
+bool isSorted( const vector<int> & SA, const vector<int> & s, int n )
+{
+    for( int i = 0; i < n-1; ++i )
+        if( !sleq( s, SA[ i ], s, SA[ i + 1 ] ) )
+            return false;
+
+    return true;  
+}
