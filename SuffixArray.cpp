@@ -214,3 +214,59 @@ void computeS0( const vector<int> & s, vector<int> & s0,
 
     radixPass( s0, SA0, s, n0, K );
 }
+// merge sorted SA0 suffixes and sorted SA12 suffixes
+void merge( const vector<int> & s, const vector<int> & s12,
+            vector<int> & SA, const vector<int> & SA0, const vector<int> & SA12,
+            int n, int n0, int n12, int t )
+{      
+    int p = 0, k = 0;
+
+    while( t != n12 && p != n0 )
+    {
+        int i = getIndexIntoS( SA12, t, n0 ); // S12
+        int j = SA0[ p ];                     // S0
+
+        if( suffix12IsSmaller( s, s12, SA12, n0, i, j, t ) )
+        { 
+            SA[ k++ ] = i;
+            ++t;
+        }
+        else
+        { 
+            SA[ k++ ] = j;
+            ++p;
+        }  
+    } 
+
+    while( p < n0 )
+        SA[ k++ ] = SA0[ p++ ];
+    while( t < n12 )
+        SA[ k++ ] = getIndexIntoS( SA12, t++, n0 ); 
+}
+
+int getIndexIntoS( const vector<int> & SA12, int t, int n0 )
+{
+    if( SA12[ t ] < n0 )
+        return SA12[ t ] * 3 + 1;
+    else
+        return ( SA12[ t ] - n0 ) * 3 + 2;
+}
+
+  // True if [a1 a2] <= [b1 b2]
+bool leq( int a1, int a2, int b1, int b2 )
+    { return a1 < b1 || a1 == b1 && a2 <= b2; }
+
+  // True if [a1 a2] <= [b1 b2 b3]
+bool leq( int a1, int a2, int a3, int b1, int b2, int b3 )
+    { return a1 < b1 || a1 == b1 && leq( a2, a3,b2, b3 ); }
+
+bool suffix12IsSmaller( const vector<int> & s, const vector<int> & s12,
+                        const vector<int> & SA12, int n0, int i, int j, int t )
+{
+    if( SA12[ t ] < n0 )  // s1 vs s0; can break tie after 1 character
+        return leq( s[ i ], s12[ SA12[ t ] + n0 ],
+                    s[ j ], s12[ j / 3 ] );
+    else                  // s2 vs s0; can break tie after 2 characters
+        return leq( s[ i ], s[ i + 1 ], s12[ SA12[ t ] - n0 + 1 ],
+                    s[ j ], s[ j + 1 ], s12[ j / 3 + n0 ] );
+}
