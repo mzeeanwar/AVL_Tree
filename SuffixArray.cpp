@@ -347,4 +347,26 @@ int main( )
     
     return 0;
 }
+/*
+ * Returns the LCP for any two strings
+ */
+int computeLCP( const string & s1, const string & s2 )
+{
+    int i = 0;
 
+    while( i < s1.length( ) && i < s2.length( ) && s1[ i ] == s2[ i ] )
+        ++i;
+
+    return i;
+}
+
+/*
+ * Fill in the suffix array and LCP information for String str
+ * str is the input String
+ * SA is an existing array to place the suffix array
+ * LCP is an existing array to place the LCP information
+ */
+void createSuffixArraySlow( const string & str, vector<int> & SA, vector<int> & LCP )
+{
+    if( SA.size( ) != str.length( ) || LCP.size( ) != str.length( ) )
+        throw invalid_argument{ "Mismatched vector sizes" };
