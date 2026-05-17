@@ -26,3 +26,19 @@ int main( )
             h.insert( s );
         }
     }
+    for( i = minItem; i < maxItem; ++i )
+    {
+        ostringstream sout;
+        sout << "hello" << i;
+        
+        h.deleteMin( x );
+
+        if( x != sout.str( ) )
+            cout << "Oops! " << i << endl;
+    }
+
+    
+    
+    cout << "End test... no other output is good" << endl;
+    return 0;
+}
