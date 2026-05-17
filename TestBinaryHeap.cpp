@@ -15,3 +15,14 @@ int main( )
     string x;
 
     cout << "Begin test... " << endl;
+    for( i = 37; i != 0; i = ( i + 37 ) % maxItem )
+    {
+        // should use to_string in C++11
+        ostringstream sout;
+        sout << "hello" << i;
+        if( i >= minItem )
+        {
+            string s = sout.str( );
+            h.insert( s );
+        }
+    }
