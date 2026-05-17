@@ -32,3 +32,20 @@ int main( )
         if( t.contains( i )  )
             cout << "Find error2!" << endl;
     }
+
+    AvlTree<int> t2;
+    t2 = t;
+
+    for( i = 2; i < NUMS; i += 2 )
+        if( !t2.contains( i ) )
+            cout << "Find error1!" << endl;
+
+    for( i = 1; i < NUMS; i += 2 )
+    {
+        if( t2.contains( i ) )
+            cout << "Find error2!" << endl;
+    }
+
+    cout << "End of test..." << endl;
+    return 0;
+}
