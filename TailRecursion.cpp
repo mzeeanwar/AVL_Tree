@@ -29,3 +29,16 @@ void print2( Iterator start, Iterator end, ostream & out = cout )
         out << *start++ << endl;   // Print and advance start
     }
 }
+int main( )
+{
+    int N = 50000;
+    vector<int> v;
+
+    for( int i = 0; i < N; ++i )
+        v.push_back( i );
+
+    print( begin( v ), end( v ) );
+    //print2( begin( v ), end( v ) );
+
+    return 0;
+}
