@@ -25,3 +25,26 @@ int main( )
     cout << "Checking... (no more output means success)" << endl;
 
     for( int att = 0; att < ATTEMPTS; ++att )
+{ 
+        cout << "ATTEMPT: " << att << endl;
+        
+        HashTable<string,StringHashFamily<3>> h1;
+        HashTable<string,StringHashFamily<3>> h2;
+        
+        for( i = GAP; i != 0; i = ( i + GAP ) % NUMS )
+        {
+            if( !h1.insert( toString( i ) ) )
+            {
+                cout << "OOPS insert fails???!!!! " << i << endl;
+            }
+            
+        }
+
+        for( i = GAP; i != 0; i = ( i + GAP ) % NUMS )
+            if( h1.insert( toString( i ) ) )
+                cout << "INSERT OOPS!!! " << i << endl;
+        
+        h2 = h1;
+        
+        for( i = 1; i < NUMS; i += 2 )
+            h2.remove( toString( i ) );
