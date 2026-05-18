@@ -19,3 +19,13 @@ int main( )
             ds.unionSets( set1, set2 );
         }
     }
+   for( int i = 0; i < numElements; ++i )
+    {
+        cout << ds.find( i ) << "*";
+        if( i % numInSameSet == numInSameSet - 1 )
+            cout << endl;
+    }
+    cout << endl;
+
+    return 0;
+}
