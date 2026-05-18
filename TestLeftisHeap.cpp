@@ -17,3 +17,11 @@ int main( )
             h.insert( i );
     h.merge( h1 );
     h2 = h;
+
+    for( i = 1; i < numItems; ++i )
+    {
+        int x;
+        h2.deleteMin( x );
+        if( x != i )
+            cout << "Oops! " << i << endl;
+    }
