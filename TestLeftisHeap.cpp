@@ -25,3 +25,11 @@ int main( )
         if( x != i )
             cout << "Oops! " << i << endl;
     }
+
+    if( !h1.isEmpty( ) )
+        cout << "Oops! h1 should have been empty!" << endl;
+
+    cout << "End test... no other output is good" << endl;
+
+    return 0;
+}
