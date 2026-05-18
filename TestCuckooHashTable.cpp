@@ -48,3 +48,23 @@ int main( )
         
         for( i = 1; i < NUMS; i += 2 )
             h2.remove( toString( i ) );
+        
+        for( i = 2; i < NUMS; i += 2 )
+            if( !h2.contains( toString( i ) ) )
+                cout << "Contains fails " << i << endl;
+        
+        for( i = 1; i < NUMS; i += 2 )
+        {
+            if( h2.contains( toString( i ) ) )
+                cout << "CONTAINS OOPS!!! " <<  i << endl;
+        }
+        
+        cout << "END OF ATTEMPT" << endl;
+        
+        if( h2.capacity( ) > NUMS * 4 )
+            cout << "LARGE CAPACITY " << h2.capacity( ) << endl;
+        
+    }
+
+    return 0;
+}
