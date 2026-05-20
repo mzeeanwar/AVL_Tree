@@ -57,3 +57,12 @@ void printCollection( const Collection & c )
                 cout << endl;
         }
         cout << endl;
+
+        if( c.size( ) > NUMS_PER_LINE )
+            return;
+        cout << "In reverse: " << endl;
+        for( auto ritr = end( c ); ritr != begin( c ); )
+            cout << *--ritr << " ";
+        cout << endl << endl;
+    }
+}
