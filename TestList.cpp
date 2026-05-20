@@ -146,3 +146,30 @@ void print( const Vector<List<int>> arr )
         cout << endl;
     }
 }
+int main( )
+{
+    const int N = 20;
+    Vector<List<int>> arr( N );
+    List<int> lst;
+    
+    for( int i = N - 1; i > 0; --i )
+    {
+        lst.push_front( i );
+        arr[ i ] = lst;
+    }
+
+    print( arr );
+    
+    clock_t start = clock( );
+    std::sort( begin( arr ), end( arr ), CompareList{ } );
+    clock_t end = clock( );
+    cout << "Sorting time: " << ( end - start ) << endl;
+    
+    print( arr );
+    
+    nonsense( 12, 0 );
+    nonsense( 12, 1 );
+  //  nonsense( 3737, 37 );
+    
+    return 0;
+}
