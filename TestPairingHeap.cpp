@@ -15,3 +15,10 @@ int main( )
     cout << "Checking; no bad output is good" << endl;
     for( i = 37; i != 0; i = ( i + 37 ) % numItems )
         h.insert( i );
+    for( i = 1; i < numItems; ++i )
+    {
+        int x;
+        h.deleteMin( x );
+        if( x != i )
+            cout << "Oops! " << i << endl;
+    }
