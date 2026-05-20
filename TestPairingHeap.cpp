@@ -32,3 +32,14 @@ int main( )
     PairingHeap<int> h2;
 
     h2 = h;
+  while( !h2.isEmpty( ) )
+    {
+        int x;
+        h2.deleteMin( x );
+        if( x != ++i )
+            cout << "Oops! " << i << endl;
+    }
+
+    cout << "Check completed" << endl;
+    return 0;
+}
