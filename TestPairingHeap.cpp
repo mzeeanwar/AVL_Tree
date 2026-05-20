@@ -22,3 +22,13 @@ int main( )
         if( x != i )
             cout << "Oops! " << i << endl;
     }
+    vector<PairingHeap<int>::Position> p( numItems );
+    for( i = 0, j = numItems / 2; i < numItems; ++i, j =(j+71)%numItems )
+        p[ j ] = h.insert(j + numItems );
+    for( i = 0, j = numItems / 2; i < numItems; ++i, j =(j+53)%numItems )
+        h.decreaseKey( p[ j ], j );
+    i = -1;
+    
+    PairingHeap<int> h2;
+
+    h2 = h;
