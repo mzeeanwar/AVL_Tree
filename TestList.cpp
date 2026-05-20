@@ -40,3 +40,20 @@ class Queue
   private:
     List<Object> theList;
 };
+template <typename Collection>
+void printCollection( const Collection & c )
+{
+    cout << "Collection contains: " << c.size( ) << " items" << endl;
+    int i = 1;
+
+    if( c.empty( ) )
+        cout << "Empty container." << endl;
+    else
+    {
+        for( auto x : c  )
+        {
+            cout << x << " ";
+            if( i++ % NUMS_PER_LINE == 0 )
+                cout << endl;
+        }
+        cout << endl;
