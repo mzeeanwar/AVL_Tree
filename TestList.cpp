@@ -96,3 +96,21 @@ int jos( int people, int passes, List<int> & order )
             p = begin( theList);
         theList.erase( tmp );
     }
+
+    if( order.size( ) % 2 == 0 )
+    {
+        s.push( 0 );
+        q.enqueue( 0 );
+    }
+
+    while( !s.isEmpty( ) && !q.isEmpty( ) )
+    {
+        int x, y;
+        s.pop( x );
+        q.dequeue( y );
+        if( x == y )
+            cout << "Middle removed is " << x << endl;
+    }
+    cout << "Only unremoved is ";
+    return *begin( theList );
+}
