@@ -66,3 +66,33 @@ void printCollection( const Collection & c )
         cout << endl << endl;
     }
 }
+
+
+int jos( int people, int passes, List<int> & order )
+{
+    List<int> theList;
+    List<int>::iterator p = begin( theList );
+    List<int>::iterator tmp;
+    Stack<int> s;
+    Queue<int> q;
+
+    order = List<int>{ };
+
+    int i;
+    for( i = people; i >= 1; --i )
+        p = theList.insert( p, i );
+
+    while( people-- != 1 )
+    {
+        for( i = 0; i < passes; ++i )
+            if( ++p == end( theList ) )
+                p = begin( theList );
+
+        order.push_back( *p );
+        s.push( *p );
+        q.enqueue( *p );
+        tmp = p;
+        if( ++p == end( theList ) )
+            p = begin( theList);
+        theList.erase( tmp );
+    }
