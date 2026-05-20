@@ -114,3 +114,20 @@ int jos( int people, int passes, List<int> & order )
     cout << "Only unremoved is ";
     return *begin( theList );
 }
+void nonsense( int people, int passes )
+{
+    List<int> lastFew, theList;
+
+    cout << jos( people, passes, lastFew ) << endl;
+    
+    cout << "(Removal order) ";
+    printCollection( lastFew );
+}
+
+
+class CompareList
+{
+public:
+    bool operator() ( const List<int> & lhs, const List<int> & rhs ) const
+    { return lhs.size( ) < rhs.size( ); }
+};
