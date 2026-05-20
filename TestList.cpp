@@ -131,3 +131,18 @@ public:
     bool operator() ( const List<int> & lhs, const List<int> & rhs ) const
     { return lhs.size( ) < rhs.size( ); }
 };
+// Call by value, to test copy constructor
+void print( const Vector<List<int>> arr )
+{
+    int N = arr.size( );
+    
+    for( int i = 0; i < N; ++i )
+    {
+        cout << "arr[" << i << "]:";
+        
+        for( auto x : arr[ i ] )
+            cout << " " << x;
+        
+        cout << endl;
+    }
+}
