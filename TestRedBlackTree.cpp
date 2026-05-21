@@ -25,3 +25,16 @@ int main( )
             cout << "Find error1!" << endl;
     if( t.contains( 0 ) )
         cout << "Oops!" << endl;
+    
+    RedBlackTree<int> t2{ NEG_INF };
+    t2 = t;
+
+    for( i = 1; i < NUMS; ++i )
+        if( !t2.contains( i ) )
+            cout << "Find error1!" << endl;
+    if( t2.contains( 0 ) )
+        cout << "Oops!" << endl;
+
+    cout << "Test complete..." << endl;
+    return 0;
+}
