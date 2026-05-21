@@ -18,3 +18,9 @@ int main( )
         h1.insert( i );
     
     h2 = h1;
+ for( i = 1; i < NUMS; i += 2 )
+        h2.remove( i );
+
+    for( i = 2; i < NUMS; i += 2 )
+        if( !h2.contains( i ) )
+            cout << "Contains fails " << i << endl;
