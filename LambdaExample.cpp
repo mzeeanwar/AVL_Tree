@@ -17,3 +17,10 @@ const Object & findMax( const vector<Object> & arr, Comparator isLessThan )
 
     return arr[ maxIndex ];
 }
+// Generic findMax, using default ordering.
+#include <functional>
+template <typename Object>
+const Object & findMax( const vector<Object> & arr )
+{
+    return findMax( arr, less<Object>( ) );
+}
