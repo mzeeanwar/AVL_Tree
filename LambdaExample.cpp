@@ -24,3 +24,15 @@ const Object & findMax( const vector<Object> & arr )
 {
     return findMax( arr, less<Object>( ) );
 }
+int main( )
+{
+    vector<string> arr = { "ZEBRA", "alligator", "crocodile" };
+    
+    cout << findMax( arr, []( const string & lhs, const string & rhs )
+      { return strcasecmp( lhs.c_str( ), rhs.c_str( ) ) < 0; }
+    ) << endl;
+    
+    cout << findMax( arr ) << endl;
+
+    return 0;
+}
