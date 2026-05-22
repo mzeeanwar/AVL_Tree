@@ -49,3 +49,15 @@ void DisjSets::setUnion( int root1, int root2 )
 {
     s[ root2 ] = root1;
 }
+/**
+ * Perform a find.
+ * Error checks omitted again for simplicity.
+ * Return the set containing x.
+ */
+int DisjSets::find( int x ) const
+{
+    if( s[ x ] < 0 )
+        return x;
+    else
+        return find( s[ x ] );
+}
