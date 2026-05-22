@@ -13,3 +13,11 @@ void checkSort( const vector<string> & a )
             cout << "Error at " << i << endl;
     cout << "Finished checksort" << endl;
 }
+template <typename AnyType>
+void permute( vector<AnyType> & a )
+{
+    static UniformRandom r;
+
+    for( int j = 1; j < a.size( ); ++j )
+        swap( a[ j ], a[ r.nextInt( 0, j ) ] );
+}
