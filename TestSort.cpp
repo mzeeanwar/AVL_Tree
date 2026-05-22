@@ -28,3 +28,37 @@ int main( )
     vector<string> a( NUM_ITEMS );        // This input adds factor of N to running time
     for( int i = 1; i < a.size( ); ++i )  // but we want to test std::move logic
         a[ i ] = a[ i - 1 ] + 'a';
+  for( int theSeed = 0; theSeed < 10; ++theSeed )
+    {
+        permute( a );
+        insertionSort( a );
+        checkSort( a );
+
+        permute( a );
+        insertionSort( begin( a ), end( a ) );
+        checkSort( a );
+
+        permute( a );
+        heapsort( a );
+        checkSort( a );
+
+        permute( a );
+        shellsort( a );
+        checkSort( a );
+
+        permute( a );
+        mergeSort( a );
+        checkSort( a );
+        
+        permute( a );
+        quicksort( a );
+        checkSort( a );
+
+        permute( a );
+        SORT( a );
+        checkSort( a );
+
+        permute( a );
+        quickSelect( a, NUM_ITEMS / 2 );
+        cout << a[ NUM_ITEMS / 2 - 1 ].length( ) << " " << NUM_ITEMS / 2 << endl;
+    }
