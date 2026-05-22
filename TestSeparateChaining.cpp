@@ -25,3 +25,12 @@ int main( )
     for( i = 2; i < NUMS; i += 2 )
         if( !h2.contains( i ) )
             cout << "Contains fails " << i << endl;
+
+    for( i = 1; i < NUMS; i += 2 )
+    {
+        if( h2.contains( i ) )
+            cout << "OOPS!!! " <<  i << endl;
+    }
+
+    return 0;
+}
