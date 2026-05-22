@@ -62,3 +62,16 @@ int main( )
         quickSelect( a, NUM_ITEMS / 2 );
         cout << a[ NUM_ITEMS / 2 - 1 ].length( ) << " " << NUM_ITEMS / 2 << endl;
     }
+    cout << "Checking SORT, Fig 7.13" << endl;
+    int N = NUM_ITEMS * NUM_ITEMS;
+    vector<int> b( N );
+    for( int i = 0; i < N; ++i )
+        b[ i ] = i;
+    permute( b );
+    SORT( b );
+    for( int i = 0; i < N; ++i )
+        if( b[ i ] != i )
+            cout << "OOPS!!" << endl;
+    
+    return 0;
+}
