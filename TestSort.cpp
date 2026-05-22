@@ -21,3 +21,10 @@ void permute( vector<AnyType> & a )
     for( int j = 1; j < a.size( ); ++j )
         swap( a[ j ], a[ r.nextInt( 0, j ) ] );
 }
+int main( )
+{
+    const int NUM_ITEMS = 1000;
+
+    vector<string> a( NUM_ITEMS );        // This input adds factor of N to running time
+    for( int i = 1; i < a.size( ); ++i )  // but we want to test std::move logic
+        a[ i ] = a[ i - 1 ] + 'a';
