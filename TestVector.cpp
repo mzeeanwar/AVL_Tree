@@ -23,3 +23,16 @@ public:
     bool operator() ( const Vector<int> & lhs, const Vector<int> & rhs ) const
     { return lhs.size( ) < rhs.size( ); }
 };
+int main( )
+{
+    const int N = 20;
+    Vector<Vector<int>> arr( N );
+    Vector<int> v;
+    
+    for( int i = N - 1; i > 0; --i )
+    {
+        v.push_back( i );
+        arr[ i ] = v;
+    }
+
+    print( arr );
