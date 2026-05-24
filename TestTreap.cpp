@@ -22,3 +22,12 @@ int main( )
         t.printTree( );
     if( t.findMin( ) != 2 || t.findMax( ) != NUMS - 2 )
         cout << "FindMin or FindMax error!" << endl;
+    for( i = 2; i < NUMS; i += 2 )
+        if( !t.contains( i ) )
+            cout << "Find error1!" << endl;
+
+    for( i = 1; i < NUMS; i += 2 )
+    {
+        if( t.contains( i ) )
+            cout << "Find error2!" << endl;
+    }
