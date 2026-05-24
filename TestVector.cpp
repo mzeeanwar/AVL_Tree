@@ -36,3 +36,12 @@ int main( )
     }
 
     print( arr );
+    clock_t start = clock( );
+    std::sort( begin( arr ), end( arr ), CompareVector{ } );
+    clock_t end = clock( );
+    cout << "Sorting time: " << ( end - start ) << endl;
+    
+    print( arr );
+    
+    return 0;
+}
