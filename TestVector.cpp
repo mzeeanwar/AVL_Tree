@@ -17,3 +17,9 @@ void print( const Vector<Vector<int>> arr )
         cout << endl;
     }
 }
+class CompareVector
+{
+public:
+    bool operator() ( const Vector<int> & lhs, const Vector<int> & rhs ) const
+    { return lhs.size( ) < rhs.size( ); }
+};
