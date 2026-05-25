@@ -259,3 +259,67 @@ vector<string> findChain( const map<string,vector<string>> & adjacentWords,
 
     return getChainFromPreviousMap( previousWord, first, second );
 }
+
+// Runs the shortest path calculation from the original set of words, returning
+// a vector that contains the sequence of word changes to get from first to
+// second. Since this calls computeAdjacentWords, it is recommended that the
+// user instead call computeAdjacentWords once and then call other findChain for
+// each word pair
+vector<string> findChain( const vector<string> & words,
+                          const string & first,
+                          const string & second )
+{
+    auto adjacentWords = computeAdjacentWords( words );
+    return findChain( adjacentWords, first, second );
+}
+
+int main( )
+{
+    clock_t start, end;
+
+    ifstream fin( "dict.txt" );
+    vector<string> words = readWords( fin );
+    cout << "Read the words..." << words.size( ) << endl;
+    map<string,vector<string> > adjacentWords;
+    
+    start = clock( );
+    adjacentWords = computeAdjacentWords( words );
+    end = clock( );
+    cout << "Elapsed time FAST: " << double(end-start)/CLOCKS_PER_SEC << endl;
+
+    printHighChangeables( adjacentWords, 15 );
+
+    /*
+    start = clock( );
+    adjacentWords = computeAdjacentWordsMedium( words );
+    end = clock( );
+    cout << "Elapsed time MEDIUM: " << double(end-start)/CLOCKS_PER_SEC << endl;
+    
+    start = clock( );
+    adjacentWords = computeAdjacentWordsSlow( words );
+    end = clock( );
+    cout << "Elapsed time SLOW: " << double(end-start)/CLOCKS_PER_SEC << endl;
+
+
+    cout << "Adjacents computed..." << endl;
+    vector<string> mostChangeable = findMostChangeable( adjacentWords );
+    cout << "Most changeable computed..." << endl;
+    printMostChangeables( mostChangeable, adjacentWords );
+    */
+
+    for( ; ; )
+    {
+        cout << "Enter two words: ";
+        string w1, w2;
+        cin >> w1 >> w2;
+
+        vector<string> path = findChain( adjacentWords, w1, w2 );
+        cout << path.size( ) << endl;
+        for( string & word : path )
+            cout << word << " " ;
+        cout << endl;
+    }
+
+
+    return 0;
+}
