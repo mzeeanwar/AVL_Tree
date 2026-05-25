@@ -158,3 +158,58 @@ computeAdjacentWords( const vector<string> & words )
 
     return adjWords;
 }
+// Find most changeable word: the word that differs in only one
+// character with the most words. Return a list of these words, in case of a tie.
+vector<string>
+findMostChangeable( const map<string,vector<string>> & adjacentWords )
+{
+    vector<string> mostChangeableWords;
+    int maxNumberOfAdjacentWords = 0;
+
+    for( auto & entry : adjacentWords )
+    {
+        const vector<string> & wordList = entry.second;
+        
+        if( wordList.size( ) > maxNumberOfAdjacentWords )
+        {
+            maxNumberOfAdjacentWords = wordList.size( );
+            mostChangeableWords.clear( );
+        }
+        if( wordList.size( ) == maxNumberOfAdjacentWords )
+            mostChangeableWords.push_back( entry.first );
+    }
+
+    return mostChangeableWords;
+}
+
+void printMostChangeables( const vector<string> & mostChangeable,
+                           const map<string,vector<string>> & adjWords )
+{
+    auto & adjacentWords = const_cast<map<string,vector<string>> &>( adjWords );
+
+    for( auto & thisWord : mostChangeable )
+    {
+        cout << thisWord << ":";
+        vector<string> & adjacents = adjacentWords[ thisWord ];
+        for( string & str : adjacents )
+            cout << " " << str;
+        cout << " (" << adjacents.size( ) << " words)" << endl;
+    }
+}
+
+void printHighChangeables( const map<string,vector<string>> & adjacentWords,
+                           int minWords = 15 )
+{
+    for( auto & entry : adjacentWords )
+    {
+        const vector<string> & words = entry.second;
+
+        if( words.size( ) >= minWords )
+        {
+            cout << entry.first << " (" << words.size( ) << "):";
+            for( auto & str : words )
+                cout << " " << str;
+            cout << endl;
+        }
+    }
+}
