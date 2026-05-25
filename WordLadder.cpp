@@ -213,3 +213,18 @@ void printHighChangeables( const map<string,vector<string>> & adjacentWords,
         }
     }
 }
+// After the shortest path calculation has run, it computes the vector that
+// contains the sequence of word changes to get from the first to the second.
+vector<string> getChainFromPreviousMap( const map<string,string> & previous,
+                                       const string & first,
+                                       const string & second )
+{
+    vector<string> result;
+    auto & prev = const_cast<map<string,string> &>( previous );
+    
+    for( string current = second; current != ""; current = prev[ current ] )
+        result.push_back( current );
+
+    reverse( begin( result ), end( result ) );
+    return result;
+}
