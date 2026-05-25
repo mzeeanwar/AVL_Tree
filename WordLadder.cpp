@@ -105,3 +105,56 @@ computeAdjacentWordsMedium( const vector<string> & words )
 
     return adjWords;
 }
+// Computes a map in which the keys are words and values are vectors of words
+// that differ in only one character from the corresponding key.
+// Uses an efficient algorithm that is O(N log N) with a map, or
+// O(N) is a hash_map is used.
+map<string,vector<string>>
+computeAdjacentWords( const vector<string> & words )
+{
+    map<string,vector<string>> adjWords;
+    map<int,vector<string>> wordsByLength;
+
+      // Group the words by their length
+    for( auto & str : words )
+        wordsByLength[ str.length( ) ].push_back( str );
+
+      // Work on each group separately
+    for( auto & entry : wordsByLength )
+    {
+        const vector<string> & groupsWords = entry.second;
+        int groupNum = entry.first;
+
+        // Work on each position in each group
+        for( int i = 0; i < groupNum; ++i )
+        {
+            // Remove one character in specified position, computing representative.
+            // Words with same representatives are adjacent; so first populate a map...
+            map<string,vector<string>> repToWord;
+
+            for( auto & str : groupsWords )
+            {
+                string rep = str;
+                rep.erase( i, 1 );
+                repToWord[ rep ].push_back( str );
+            }
+
+            // and then look for map values with more than one string
+            for( auto & entry : repToWord )
+            {
+                const vector<string> & clique = entry.second;
+                if( clique.size( ) >= 2 )
+                {
+                    for( int p = 0; p < clique.size( ); ++p )
+                        for( int q = p + 1; q < clique.size( ); ++q )
+                        {
+                            adjWords[ clique[ p ] ].push_back( clique[ q ] );
+                            adjWords[ clique[ q ] ].push_back( clique[ p ] );
+                        }
+                }
+            }
+        }
+    }
+
+    return adjWords;
+}
