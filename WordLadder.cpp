@@ -228,3 +228,34 @@ vector<string> getChainFromPreviousMap( const map<string,string> & previous,
     reverse( begin( result ), end( result ) );
     return result;
 }
+// Runs the shortest path calculation from the adjacency map, returning a vector
+// that contains the sequence of word changes to get from first to second.
+vector<string> findChain( const map<string,vector<string>> & adjacentWords,
+                          const string & first,
+                          const string & second )
+{
+    map<string,string> previousWord;
+    queue<string> q;
+
+    q.push( first );
+
+    while( !q.empty( ) )
+    {
+        string current = q.front( ); q.pop( );
+
+        auto itr = adjacentWords.find( current );
+        if( itr != adjacentWords.end( ) )
+        {
+            const vector<string> & adj = itr->second;
+            for( auto & str : adj )
+                if( previousWord[ str ] == "" )
+                {
+                    previousWord[ str ] = current;
+                    q.push( str );
+                }
+        }
+    }
+    previousWord[ first ] = "";
+
+    return getChainFromPreviousMap( previousWord, first, second );
+}
