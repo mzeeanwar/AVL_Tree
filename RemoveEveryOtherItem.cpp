@@ -15,3 +15,18 @@ void removeEveryOtherItem( Container & lst )
             ++itr;
     }
 }
+template <typename Container>
+void print( const Container & c, ostream & out = cout )
+{
+    if( c.empty( ) )
+        out << "(empty)";
+    else
+    {
+        auto itr = begin( c );
+        out << "[ " << *itr++;   // Print first item
+
+        while( itr != end( c ) )
+            out << ", " << *itr++;
+        out << " ]" << endl;
+    }
+}
