@@ -38,3 +38,33 @@ class KdTree
         KdNode( const vector<Comparable> & item )
           : data( item ), left( nullptr ), right( nullptr ) { }
     };
+    KdNode *root;
+
+    void insert( const vector<Comparable> & x, KdNode * & t, int level )
+    {
+        if( t == nullptr )
+            t = new KdNode( x );
+        else if( x[ level ] < t->data[ level ] )
+            insert( x, t->left, 1 - level );
+        else
+            insert( x, t->right, 1 - level );
+    }
+
+    void printRange( const vector<Comparable> & low,
+                     const vector<Comparable> & high,
+                     KdNode *t, int level ) const
+    {
+        if( t != nullptr )
+        {
+            if( low[ 0 ] <= t->data[ 0 ] && high[ 0 ] >= t->data[ 0 ] && 
+                low[ 1 ] <= t->data[ 1 ] && high[ 1 ] >= t->data[ 1 ] )
+                cout << "(" << t->data[ 0 ] << "," 
+                            << t->data[ 1 ] << ")" << endl;
+
+            if( low[ level ] <= t->data[ level ] )
+                printRange( low, high, t->left, 1 - level );
+            if( high[ level ] >= t->data[ level ] )
+                printRange( low, high, t->right, 1 - level );
+        }
+    }
+};
