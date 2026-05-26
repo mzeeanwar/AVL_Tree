@@ -38,10 +38,30 @@ int main( )
 
     removeEveryOtherItem( lst );
     print( lst, cout );
+    clock_t start, end;
 
-   
+    for( int N = 100001; N <= 5000000; N *= 2 )
+    {
+        list<int> lst;
+        vector<int> vec;
 
-    
+        for( int i = 0; i < N; ++i )
+        {
+            lst.push_back( i );
+            vec.push_back( i );
+        }
 
+
+        start = clock( );
+        removeEveryOtherItem( lst );
+        end = clock( );
+        cout << "list " << N << " " << double(end-start)/CLOCKS_PER_SEC << endl;
+
+        start = clock( );
+        removeEveryOtherItem( vec );
+        end = clock( );
+        cout << "vector " << N << " " << double(end-start)/CLOCKS_PER_SEC << endl;
+
+    }
     return 0;
 }
