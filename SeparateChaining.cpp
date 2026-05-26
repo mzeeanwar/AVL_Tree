@@ -21,3 +21,17 @@ bool isPrime( int n )
 
     return true;
 }
+/**
+ * Internal method to return a prime number at least as large as n.
+ * Assumes n > 0.
+ */
+int nextPrime( int n )
+{
+    if( n % 2 == 0 )
+        ++n;
+
+    for( ; !isPrime( n ); n += 2 )
+        ;
+
+    return n;
+}
