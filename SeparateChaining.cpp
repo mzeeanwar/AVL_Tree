@@ -47,3 +47,11 @@ size_t hash( const string & key )
 
     return hashVal;
 }
+
+/**
+ * A hash routine for ints.
+ */
+size_t hash( int key )
+{
+    return key;
+}
