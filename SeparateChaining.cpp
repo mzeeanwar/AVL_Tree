@@ -35,3 +35,15 @@ int nextPrime( int n )
 
     return n;
 }
+/**
+ * A hash routine for string objects.
+ */
+size_t hash( const string & key )
+{
+    size_t hashVal = 0;
+
+    for( char ch : key )
+        hashVal = 37 * hashVal + ch;
+
+    return hashVal;
+}
