@@ -30,3 +30,18 @@ void print( const Container & c, ostream & out = cout )
         out << " ]" << endl;
     }
 }
+int main( )
+{
+    list<int> lst;
+    for( int i = 0; i < 9; ++i )
+        lst.push_back( i );
+
+    removeEveryOtherItem( lst );
+    print( lst, cout );
+
+   
+
+    
+
+    return 0;
+}
