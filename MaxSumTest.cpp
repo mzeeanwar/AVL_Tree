@@ -45,3 +45,10 @@ int maxSubSum2( const vector<int> & a )
 
     return maxSum;
 }
+/**
+ * Return maximum of three integers.
+ */
+int max3( int a, int b, int c )
+{
+    return a > b ? a > c ? a : c : b > c ? b : c;
+}
