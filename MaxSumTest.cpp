@@ -88,3 +88,11 @@ int maxSumRec( const vector<int> & a, int left, int right )
     return max3( maxLeftSum, maxRightSum,
                     maxLeftBorderSum + maxRightBorderSum );
 }
+/**
+ * Driver for divide-and-conquer maximum contiguous
+ * subsequence sum algorithm.
+ */
+int maxSubSum3( const vector<int> & a )
+{
+    return maxSumRec( a, 0, a.size( ) - 1 );
+}
