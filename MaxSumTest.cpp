@@ -115,3 +115,22 @@ int maxSubSum4( const vector<int> & a )
 
     return maxSum;
 }
+/**
+ * Simple test program.
+ */
+int main( )
+{
+    vector<int> a { 4, -3, 5, -2, -1, 2, 6, -2 };
+    int maxSum;
+
+    maxSum = maxSubSum1( a );
+    cout << "Max sum is " <<  maxSum << endl;
+    maxSum = maxSubSum2( a );
+    cout << "Max sum is " <<  maxSum << endl;
+    maxSum = maxSubSum3( a );
+    cout << "Max sum is " <<  maxSum << endl;
+    maxSum = maxSubSum4( a );
+    cout << "Max sum is " <<  maxSum << endl;
+
+    return 0;
+}
